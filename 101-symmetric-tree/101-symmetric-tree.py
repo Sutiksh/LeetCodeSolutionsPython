@@ -9,17 +9,16 @@ class Solution:
         if not root:
             return True
         
-        return self.areSymmetric(root.left, root.right)
-    
-    def areSymmetric(self, leftC, rightC):
-        if leftC == None or rightC == None:
-            return leftC == rightC
+        def symmetric(leftC, rightC):
+            if not leftC or not rightC:
+                return leftC == rightC
+            
+            if leftC.val != rightC.val:
+                return False
+            
+            return symmetric(leftC.left, rightC.right) and symmetric(leftC.right, rightC.left)
         
-        if leftC.val != rightC.val:
-            return False
-        
-        return self.areSymmetric(leftC.left, rightC.right) and self.areSymmetric(leftC.right, rightC.left)
-        
+        return symmetric(root.left, root.right)
         
         
         
