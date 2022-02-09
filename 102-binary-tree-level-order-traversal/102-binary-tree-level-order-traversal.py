@@ -10,13 +10,15 @@ class Solution:
         q = collections.deque()
         q.append(root)
         while q:
-            level = []
-            for i in range(len(q)):
+            n = len(q)
+            lvl = []
+            for _ in range(n):
                 node = q.popleft()
                 if node:
-                    level.append(node.val)
-                    q.append(node.left)
-                    q.append(node.right)
-            if level:
-                ans.append(level)
+                    lvl.append(node.val)
+                    for child in [node.left, node.right]:
+                        if child is not None:
+                            q.append(child)
+            if lvl:
+                ans.append(lvl)
         return ans
