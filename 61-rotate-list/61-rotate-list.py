@@ -1,0 +1,53 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+#         slow, fast = head, head
+#         dummy1 = head
+        
+#         for i in range(k):
+#             fast = fast.next
+            
+#         while fast and fast.next:
+#             slow = slow.next
+#             fast = fast.next
+            
+#         dummy2 = slow.next
+        
+#         slow.next = None
+#         fast.next = dummy1
+        
+#         return dummy2
+
+        # Assign a new node to head for traversal
+        dummy = head
+        length = 1
+        # Edge cases:
+        #   1. If the linkedList is empty
+        #   2. If the linkedList has only one node
+        #   3. If k equals 0 i.e., no rotations
+        if not dummy or not dummy.next or k==0:
+            return head
+    
+        # Step1 : Traverse through the LL and link the tail node to head, almost like a circular LL 
+		# Also, compute the length of LL
+        while dummy.next:
+            length += 1
+            dummy = dummy.next
+        tail = dummy
+        tail.next = head
+               
+        # Step2.1: when rotations are more than size of LL, use modulo to reduce the k value
+        k = k%length if k>=length else k
+        
+        # Step2.1: Traverse through the LL and cut the link after reaching the new tail. 
+		# The newhead will be the node next to the head node after traversal
+        for i in range(1,length-k):
+            head = head.next
+        newhead = head.next
+        head.next = None
+        
+        return newhead
